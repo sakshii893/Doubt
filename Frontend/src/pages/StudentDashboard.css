@@ -1,0 +1,108 @@
+.dashboard-container {
+  padding: 40px;
+  background-color: #f4f9fc;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.user-meta {
+  margin-bottom: 20px;
+}
+
+.primary-btn {
+  background-color: #007acc;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.primary-btn:hover {
+  background-color: #005fa3;
+}
+
+.form-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-card input,
+.form-card textarea {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.blue-btn {
+  background-color: #2196f3;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.file-info {
+  font-size: 14px;
+  color: #555;
+}
+
+.doubt-card {
+  background-color: #fff;
+  border-left: 6px solid #2196f3;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.doubt-card.resolved {
+  border-left-color: #4caf50;
+  background-color: #ecf9ec;
+}
+
+.doubt-link {
+  color: #007acc;
+  text-decoration: none;
+}
+
+.action-btns {
+  margin-top: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #ffa726;
+  color: #fff;
+}
+
+.delete-btn {
+  background-color: #ef5350;
+  color: #fff;
+}
