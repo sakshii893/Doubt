@@ -7,7 +7,7 @@ const commentRoutes = require('./routes/commentRoutes');
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173", // your frontend port (Vite default)
+  origin: "https://doubt-two.vercel.app", // your frontend port (Vite default)
   credentials: true,
 }))
 app.use(express.json());
