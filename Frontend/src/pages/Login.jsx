@@ -56,6 +56,15 @@ function Login() {
         </div>
 
         <button type="submit" className="submit-btn">Log In</button>
+         <p style={{ marginTop: '12px', textAlign: 'center' }}>
+        Don't have an account?{" "}
+        <span
+          onClick={() => navigate("/register")}
+          style={{ color: "#2196f3", cursor: "pointer", textDecoration: "underline" }}
+        >
+          Register here
+        </span>
+      </p>
       </form>
     </div>
   );

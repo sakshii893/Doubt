@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Link } from 'react-router-dom';
 
 function StudentDashboard() {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const [doubts, setDoubts] = useState([]);
   const [editDoubtId, setEditDoubtId] = useState(null);
   const [editForm, setEditForm] = useState({ title: "", description: "" });
@@ -89,80 +89,99 @@ function StudentDashboard() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Welcome, {user?.name}</h2>
-      <p>Email: {user?.email}</p>
-      <p>Role: {user?.role}</p>
+    <div style={{ padding: "30px", fontFamily: "Segoe UI" }}>
+      <div style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: "20px"
+      }}>
+        <div>
+          <h2 style={{ marginBottom: "5px" }}>👋 Hello, {user?.name}</h2>
+          <p style={{ margin: 0 }}>📧 {user?.email}</p>
+          <p style={{ margin: 0 }}>🎓 Role: {user?.role}</p>
+        </div>
+        <button
+          onClick={logout}
+          style={{
+            padding: "10px 18px",
+            backgroundColor: "#f44336",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer"
+          }}
+        >
+          Logout
+        </button>
+      </div>
 
-      {/* 🔘 Toggle Create Form */}
       <button
         onClick={() => setShowCreateForm(!showCreateForm)}
         style={{
-          marginBottom: "15px",
-          padding: "10px",
+          marginBottom: "20px",
+          padding: "10px 16px",
           backgroundColor: "#4caf50",
           color: "white",
           border: "none",
           borderRadius: "5px",
+          cursor: "pointer",
+          fontWeight: "500"
         }}
       >
         {showCreateForm ? "Cancel" : "+ Create New Doubt"}
       </button>
 
       {showCreateForm && (
-        <div style={{ marginBottom: "20px" }}>
+        <div style={{ marginBottom: "30px", border: "1px solid #ddd", borderRadius: "8px", padding: "15px", background: "#fafafa" }}>
           <input
             type="text"
             name="title"
             placeholder="Title"
             value={newDoubt.title}
             onChange={handleCreateChange}
-            style={{ width: "100%", padding: "8px", marginBottom: "5px" }}
+            style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
           />
           <textarea
             name="description"
             placeholder="Description"
             value={newDoubt.description}
             onChange={handleCreateChange}
-            style={{ width: "100%", padding: "8px", marginBottom: "5px" }}
-          ></textarea>
-          <input
-            type="file"
-            onChange={handleFileChange}
-            style={{ marginBottom: "5px" }}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", marginBottom: "10px" }}
           />
-          {file && <p>📎 Selected file: {file.name}</p>}
+          <input type="file" onChange={handleFileChange} />
+          {file && <p>📎 File selected: {file.name}</p>}
           <button
             onClick={handleCreateSubmit}
             style={{
-              marginTop: "8px",
+              marginTop: "10px",
               backgroundColor: "#2196f3",
               color: "white",
-              padding: "8px 14px",
+              padding: "10px 16px",
               border: "none",
               borderRadius: "5px",
+              cursor: "pointer"
             }}
           >
-            Submit
+            Submit Doubt
           </button>
         </div>
       )}
 
-      <hr />
-      <h3>Your Doubts</h3>
+      <h3 style={{ marginBottom: "15px" }}>📚 Your Doubts</h3>
 
       {doubts.length === 0 ? (
-        <p>You haven't asked any doubts yet.</p>
+        <p style={{ fontStyle: "italic", color: "#555" }}>You haven't asked any doubts yet.</p>
       ) : (
         doubts.map((doubt) => (
           <div
             key={doubt._id}
             style={{
               border: "1px solid #ccc",
-              padding: "10px",
-              marginBottom: "10px",
-              borderRadius: "5px",
-              backgroundColor: doubt.status === "resolved" ? "#e0ffe0" : "#fff",
+              padding: "15px",
+              marginBottom: "15px",
+              borderRadius: "8px",
+              backgroundColor: doubt.status === "resolved" ? "#e6ffe6" : "#ffffff"
             }}
           >
             {editDoubtId === doubt._id ? (
@@ -172,44 +191,43 @@ function StudentDashboard() {
                   name="title"
                   value={editForm.title}
                   onChange={handleEditChange}
+                  style={{ width: "100%", padding: "8px", marginBottom: "8px" }}
                 />
                 <textarea
                   name="description"
                   value={editForm.description}
                   onChange={handleEditChange}
+                  style={{ width: "100%", padding: "8px", marginBottom: "8px" }}
                 />
-                <button onClick={() => handleEditSubmit(doubt._id)}>Save</button>
+                <button onClick={() => handleEditSubmit(doubt._id)} style={{ marginRight: "8px" }}>Save</button>
                 <button onClick={() => setEditDoubtId(null)}>Cancel</button>
               </div>
             ) : (
               <>
                 <h4>
-                  <Link
-                    to={`/doubt/${doubt._id}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
+                  <Link to={`/doubt/${doubt._id}`} style={{ textDecoration: "none", color: "#333" }}>
                     {doubt.title}
                   </Link>
                 </h4>
                 <p>{doubt.description}</p>
-                <p>
-                  Status: <strong>{doubt.status}</strong>
-                </p>
-                <p>Created: {new Date(doubt.createdAt).toLocaleString()}</p>
+                <p><strong>Status:</strong> {doubt.status}</p>
+                <p style={{ fontSize: "14px", color: "#777" }}>📅 {new Date(doubt.createdAt).toLocaleString()}</p>
 
-             {doubt.file && (
-  <div style={{ marginTop: '8px' }}>
-    <a href={doubt.file} target="_blank" rel="noreferrer">
-      📎 View Attachment
-    </a>
-  </div>
-)}
+                {doubt.file && (
+                  <div style={{ marginTop: "6px" }}>
+                    <a href={doubt.file} target="_blank" rel="noreferrer" style={{ color: "#2196f3", textDecoration: "underline" }}>
+                      📎 View Attachment
+                    </a>
+                  </div>
+                )}
 
                 {doubt.status === "open" && (
-                  <>
-                    <button onClick={() => handleEditClick(doubt)}>Edit</button>
-                    <button onClick={() => handleDelete(doubt._id)}>Delete</button>
-                  </>
+                  <div style={{ marginTop: "10px" }}>
+                    <button onClick={() => handleEditClick(doubt)} style={{ marginRight: "8px" }}>Edit</button>
+                    <button onClick={() => handleDelete(doubt._id)} style={{ backgroundColor: "#f44336", color: "#fff", border: "none", padding: "6px 12px", borderRadius: "4px", cursor: "pointer" }}>
+                      Delete
+                    </button>
+                  </div>
                 )}
               </>
             )}
@@ -221,3 +239,4 @@ function StudentDashboard() {
 }
 
 export default StudentDashboard;
+  

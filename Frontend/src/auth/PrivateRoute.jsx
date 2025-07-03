@@ -1,21 +1,16 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 
 function PrivateRoute({ children, role }) {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
-  if (!user) {
-    // Not logged in
-    return <Navigate to="/login" />;
-  }
+  if (loading) return <p>Loading...</p>; // or a spinner
 
-  if (role && user.role !== role) {
-    // Logged in but wrong role
-    return <Navigate to="/" />;
-  }
+  if (!user) return <Navigate to="/login" />;
 
-  // Logged in and authorized
+  if (role && user.role !== role) return <Navigate to="/" />;
+
   return children;
 }
 

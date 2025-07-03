@@ -69,7 +69,7 @@ function DoubtDetail() {
       {doubt.file && (
         <div style={{ margin: "10px 0" }}>
           <a
-            href={`http://localhost:5000${doubt.file}`}
+            href={doubt.file}
             target="_blank"
             rel="noreferrer"
           >
